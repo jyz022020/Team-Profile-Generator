@@ -1,60 +1,142 @@
 const inquirer = require('inquirer');
+const generatePage = require('./src/template');
 const fs = require('fs');
-//const markdown = require('./utils/generateMarkdown');
 
 console.log(`
 Welcome to Team Profile Generator.
 Please enter your team members's information:
 `);
+const promptManager = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'managerName',
+            message: "Please enter team manager's name: ",
+        },
+        {
 
-// TODO: Create an array of questions for user input;
-const addUsers = () => {
+            type: 'input',
+            name: 'managerId',
+            message: "Please enter employee id number. ",
+        },
+        {
+            type: 'input',
+            name: 'managerEmail',
+            message: "Please enter team member's email address",
+        },
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: "Please enter team office number",
+        }
+    ])
+    // .then(managerData => {
+    //     var teamData;
+    //     teamData.managerData = managerData;
+    //     if (actionType === 'Engineer') {
+    //         console.log("addingEngineer");
+    //     } else if (actionType === 'Intern') {
+    //         console.log("intern");
+    //     } else {
+    //         console.log("Exit");
+    //     }    
+    //     return teamData;
+    // })
+    .then(managerData => {
+        var teamData = {};
+        teamData.managerData = managerData;
+        return teamData;
+    });
+};
+
+const promptAction = teamData => {
+    if (!teamData.users) {
+        teamData.users = [];
+    }
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'userChoice',
+            message: 'Add a user?',
+            choices: ['Engineer', 'Intern', 'Finish building my team']
+        }
+    ])
+    .then(action => {
+        if (action.userChoice === 'Engineer') {
+            return addEngineer(teamData);
+        } else if (action.userChoice === 'Intern') {
+            return addIntern(teamData);
+        } else {
+            return teamData;
+        }
+    });
+};
+
+const addIntern = teamData => {
     return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
-            message: "Please enter team members name: ",
-            // validate: nameInput => {
-            //   if (nameInput) {
-            //     return true;
-            //   } else {
-            //     console.log('Please enter your name!');
-            //     return false;
-            //   }
-            // }
-        },
-        {
-            type: 'input',
-            name: 'role',
-            message: "Please select team member's role. ",
-            choice: [
-                'Engineer',
-                'Intern',
-                'Manager'
-            ]
+            message: "Please enter intern's name: ",
         },
         {
 
             type: 'input',
             name: 'id',
-            message: "Please enter team member's id number. ",
+            message: "Please enter intern's id number. ",
         },
         {
-        type: 'input',
-        name: 'email',
-        message: "Please enter team member's email address",
-      },
-    ]);
+            type: 'input',
+            name: 'email',
+            message: "Please enter intern's email address",
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: "Please enter engineer's school",
+        }
+    ])
+    .then(internData => {
+        internData.type = 'intern';
+        teamData.users.push(internData);
+        return promptAction(teamData);
+    });
 };
 
-addUsers()
-.then (function({name, role, id, email}){
-    // let roleInfo = "";
-    // if (role == "Engineer") {
-    //     roleInfo = "Githun username";
-    // } else if (roleInfo == )
-    console.log(name);
-    console.log(role);
-    console.log(id);
-    console.log(email);
-})
+// TODO: Create an array of questions for user input;
+const addEngineer = teamData => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: "Please enter engineer's name: ",
+        },
+        {
+
+            type: 'input',
+            name: 'id',
+            message: "Please enter engineer's id number. ",
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "Please enter engineer's email address",
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: "Please enter engineer's github username",
+        }
+    ])
+    .then(engineerData => {
+        engineerData.type = 'engineer';
+        teamData.users.push(engineerData);
+        return promptAction(teamData);
+    });
+};
+
+promptManager()
+    .then(promptAction)
+    .then(teamData => {
+        fs.writeFileSync("./index.html", generatePage(teamData));
+    });
