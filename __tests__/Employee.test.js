@@ -1,17 +1,28 @@
-// const Potion = require('../lib/Potion.js');
+class Employee {
+  constructor(name,id,email){
+    this.name = name;
+    this.id = id;
+    this.email = email;
+  }
 
-// test('creates a health potion object', () => {
-//   const potion = new Potion('health');
+  getName(){
+    return this.name;
+  }
 
-//   expect(potion.name).toBe('health');
-//   expect(potion.value).toEqual(expect.any(Number));
-// });
+  getId(){
+    return this.id;
+  }
 
-// test('creates a random potion object', () => {
-//   const potion = new Potion();
+  getEmail(){
+    return this.email;
+  }
 
-//   expect(potion.name).toEqual(expect.any(String));
-//   expect(potion.name.length).toBeGreaterThan(0);
-//   expect(potion.value).toEqual(expect.any(Number));
-// });
+  getTitle(){
+    return "Employee";
+  }
+
+}
+
+module.exports = Employee;
+
 

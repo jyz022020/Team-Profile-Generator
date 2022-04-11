@@ -73,6 +73,9 @@ const promptAction = teamData => {
 };
 
 const addIntern = teamData => {
+    if (!teamData.interns) {
+        teamData.interns = [];
+    }
     return inquirer.prompt([
         {
             type: 'input',
@@ -92,19 +95,22 @@ const addIntern = teamData => {
         },
         {
             type: 'input',
-            name: 'github',
-            message: "Please enter engineer's school",
+            name: 'school',
+            message: "Please enter intern's school",
         }
     ])
     .then(internData => {
         internData.type = 'intern';
-        teamData.users.push(internData);
+        teamData.interns.push(internData);
         return promptAction(teamData);
     });
 };
 
 // TODO: Create an array of questions for user input;
 const addEngineer = teamData => {
+    if (!teamData.engineers) {
+        teamData.engineers=[];
+    }
     return inquirer.prompt([
         {
             type: 'input',
@@ -130,7 +136,7 @@ const addEngineer = teamData => {
     ])
     .then(engineerData => {
         engineerData.type = 'engineer';
-        teamData.users.push(engineerData);
+        teamData.engineers.push(engineerData);
         return promptAction(teamData);
     });
 };
@@ -138,5 +144,5 @@ const addEngineer = teamData => {
 promptManager()
     .then(promptAction)
     .then(teamData => {
-        fs.writeFileSync("./index.html", generatePage(teamData));
+        fs.writeFileSync("./index.html", generatePage.generateHTML(teamData));
     });
