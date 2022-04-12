@@ -1,5 +1,9 @@
-header{
-    background-color: pink;
+.team-heading{
     text-align: center;
-    color:aliceblue;
+    color:rgb(240, 255, 253);
+}
+
+.info-card {
+    margin: 5px;
+    border: 1px solid black;
 }

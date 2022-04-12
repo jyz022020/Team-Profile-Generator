@@ -17,17 +17,17 @@ const promptManager = () => {
 
             type: 'input',
             name: 'managerId',
-            message: "Please enter employee id number. ",
+            message: "Please enter employee id number:  ",
         },
         {
             type: 'input',
             name: 'managerEmail',
-            message: "Please enter team member's email address",
+            message: "Please enter team member's email address: ",
         },
         {
             type: 'input',
             name: 'officeNumber',
-            message: "Please enter team office number",
+            message: "Please enter team office number: ",
         }
     ])
     // .then(managerData => {
@@ -86,17 +86,17 @@ const addIntern = teamData => {
 
             type: 'input',
             name: 'id',
-            message: "Please enter intern's id number. ",
+            message: "Please enter intern's id number: ",
         },
         {
             type: 'input',
             name: 'email',
-            message: "Please enter intern's email address",
+            message: "Please enter intern's email address: ",
         },
         {
             type: 'input',
             name: 'school',
-            message: "Please enter intern's school",
+            message: "Please enter intern's school: ",
         }
     ])
     .then(internData => {
@@ -121,17 +121,17 @@ const addEngineer = teamData => {
 
             type: 'input',
             name: 'id',
-            message: "Please enter engineer's id number. ",
+            message: "Please enter engineer's id number: ",
         },
         {
             type: 'input',
             name: 'email',
-            message: "Please enter engineer's email address",
+            message: "Please enter engineer's email address: ",
         },
         {
             type: 'input',
             name: 'github',
-            message: "Please enter engineer's github username",
+            message: "Please enter engineer's github username: ",
         }
     ])
     .then(engineerData => {

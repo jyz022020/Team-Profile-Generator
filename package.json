@@ -4,5 +4,8 @@
     "inquirer": "^8.2.2",
     "jest": "^27.5.1",
     "package": "^1.0.1"
+  },
+  "scripts": {
+    "test": "jest --verbose test/*"
   }
 }
