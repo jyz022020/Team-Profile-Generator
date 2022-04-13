@@ -49,10 +49,10 @@ function generateManagerCard(managerData) {
             <h2 class = "card-1">${manager.getName()}</h2>
             <h3 class = "card-1"><i class="fas fa-mug-hot"></i>${manager.getRole()}</h3>
         </div>  
-        <div>cardInfo
+        <div>
             <ul class = "card-2">
                 <li class = "card-2-item">ID:${manager.getId()}</li>
-                <li class = "card-2-item">Email:${manager.getEmail()}</li>
+                <li class="card-2-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
                 <li class="card-2-item">Office Number: ${manager.getOfficeNumber()}</li>
             </ul>
         </div>
